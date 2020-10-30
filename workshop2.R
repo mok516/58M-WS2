@@ -88,3 +88,24 @@ buoy44025 <- read_table(file,
                         skip = 2)
 # buoy44025 is the name of the buy this data is taken from 
 
+view(buoy44025)
+
+
+# use scan() to read in the appropriate lines and tidy the results 
+# remove the # in front of YY
+buoy <- scan(file, nlines = 1, what = character()) %>% 
+  str_remove("#")
+view(buoy)
+
+# put in measurement values using str_replace 
+buoy2 <- scan(file, nlines = 1, what = character()) %>% 
+  str_remove("#") %>%
+  str_replace("/", "per")
+view(buoy2)
+
+# combine into a single vector with paste()
+combined <- paste(buoy, buoy2, sep = "_")
+
+# make combined vector the names of headings 
+names(buoy44025) <- combined
+names(buoy44025)
