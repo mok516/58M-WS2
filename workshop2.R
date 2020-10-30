@@ -13,8 +13,21 @@ str(human)
 # tidy with pivot_longer 
 hdi <- human %>%
   pivot_longer(names_to = "Years",
-               values_to = "HDI Index",
+               values_to = "Index",
                cols = -c(Country, `HDI Rank (2018)`))
 
 view(hdi)
+
+# look for NA results with is.na()
+hdi2 <- hdi[!is.na(hdi$Index),]
+hdi3 <- hdi2[!is.na(hdi2$`HDI Rank (2018)`),]
+view(hdi3)
+
+# summarise data add summary column and add standard deviation and standard error 
+hdi_summary <- hdi3 %>%
+  group_by(Country) %>%
+  summarise(mean_index = mean(Index),
+            n = length (Index),
+            sd = sd(Index),
+            se = sd/sqrt(n))
 
