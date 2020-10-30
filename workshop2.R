@@ -78,5 +78,13 @@ hdi_summary <- hdi3 %>%
   
   
 ## Section 2 ##
+# use readLines() to view first few lines of data and help to decide on how we should read in the data 
+file <- "http://www.ndbc.noaa.gov/view_text_file.php?filename=44025h2011.txt.gz&dir=data/historical/stdmet/"
+readLines(file, n = 4)
 
+# the data starts on line 3 
+buoy44025 <- read_table(file, 
+                        col_names = FALSE,
+                        skip = 2)
+# buoy44025 is the name of the buy this data is taken from 
 
